@@ -1,7 +1,8 @@
 # services/llm.py
 import google.generativeai as genai
 from typing import List, Dict, Any, Tuple
-from serpapi.google_search_results import GoogleSearch
+from serpapi import GoogleSearch
+
 
 
 # Configure logging
@@ -69,3 +70,4 @@ def get_web_response(user_query: str, history: List[Dict[str, Any]], gemini_api_
         logger.error(f"Error getting LLM response: {e}")
 
         return "I'm sorry, I encountered an error while processing your request.", history
+
