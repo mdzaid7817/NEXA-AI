@@ -1,0 +1,397 @@
+/* static/style.css */
+
+body {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.chat-container {
+    width: 100%;
+    max-width: 900px; /* Increased from 700px */
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 25px;
+    padding: 2.5rem;
+    box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.1),
+        0 15px 12px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    display: flex;
+    flex-direction: column;
+    height: 85vh;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    position: relative;
+}
+
+/* Header styling */
+.chat-container::before {
+    content: "NEXA AI Voice Agent";
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    color: white;
+    padding: 8px 24px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.chat-log {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 1.5rem;
+    border: 2px solid rgba(102, 126, 234, 0.1);
+    border-radius: 20px;
+    background: linear-gradient(145deg, #f8f9fa, #ffffff);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    position: relative;
+    scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+.chat-log::-webkit-scrollbar {
+    width: 6px;
+}
+
+.chat-log::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+}
+
+.chat-log::-webkit-scrollbar-thumb {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    border-radius: 10px;
+}
+
+.message {
+    padding: 1rem 1.25rem;
+    border-radius: 25px;
+    max-width: 80%;
+    word-wrap: break-word;
+    line-height: 1.5;
+    position: relative;
+    animation: messageSlide 0.3s ease-out;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+@keyframes messageSlide {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.message.user {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    align-self: flex-end;
+    border-bottom-right-radius: 8px;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.message.user::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: -8px;
+    width: 0;
+    height: 0;
+    border: 8px solid transparent;
+    border-left-color: #764ba2;
+    border-bottom: 0;
+    border-right: 0;
+}
+
+.message.assistant {
+    background: linear-gradient(135deg, #e9ecef 0%, #f8f9fa 100%);
+    color: #2c3e50;
+    align-self: flex-start;
+    border-bottom-left-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.message.assistant::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: -8px;
+    width: 0;
+    height: 0;
+    border: 8px solid transparent;
+    border-right-color: #e9ecef;
+    border-bottom: 0;
+    border-left: 0;
+}
+
+/* Recording controls container - Center the button */
+.recording-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+    width: 100%; /* Ensure full width for centering */
+}
+
+.record-btn {
+    width: 70px; /* Reduced from 100px */
+    height: 70px; /* Reduced from 100px */
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    font-size: 1.5rem; /* Reduced from 2rem */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    position: relative;
+    box-shadow:
+        0 8px 25px rgba(102, 126, 234, 0.3),
+        0 3px 10px rgba(0, 0, 0, 0.1);
+    margin: 0 auto; /* Ensure button is centered */
+}
+
+.record-btn::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    right: -8px;
+    bottom: -8px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+    z-index: -1;
+    transition: all 0.3s ease;
+}
+
+.record-btn:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow:
+        0 12px 35px rgba(102, 126, 234, 0.4),
+        0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.record-btn:hover::before {
+    top: -12px;
+    left: -12px;
+    right: -12px;
+    bottom: -12px;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+}
+
+.record-btn.recording {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+    animation: recordingPulse 2s infinite;
+    border-color: rgba(255, 107, 107, 0.5);
+}
+
+@keyframes recordingPulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow:
+            0 8px 25px rgba(255, 107, 107, 0.4),
+            0 0 0 0 rgba(255, 107, 107, 0.7);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow:
+            0 12px 35px rgba(255, 107, 107, 0.5),
+            0 0 0 20px rgba(255, 107, 107, 0);
+    }
+}
+
+.status-display {
+    font-size: 1.1rem;
+    color: #667eea;
+    font-weight: 500;
+    text-align: center;
+    padding: 0.5rem 1rem;
+    background: rgba(102, 126, 234, 0.1);
+    border-radius: 25px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(102, 126, 234, 0.2);
+    min-width: 150px;
+    margin: 0 auto; /* Center the status display */
+}
+
+/* Enhanced empty state */
+.chat-log:empty::before {
+    content: "👋 Hello! I'm NEXA, your AI voice assistant.\A Click the microphone button to start our conversation!";
+    color: #667eea;
+    font-style: normal;
+    text-align: center;
+    margin: auto;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    white-space: pre-line;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
+    padding: 2rem;
+    border-radius: 20px;
+    border: 2px dashed rgba(102, 126, 234, 0.3);
+    font-weight: 500;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .chat-container {
+        padding: 1.5rem;
+        height: 90vh;
+        border-radius: 20px;
+        max-width: 95%; /* Allow more width on mobile */
+    }
+    
+    .record-btn {
+        width: 60px; /* Smaller on mobile */
+        height: 60px;
+        font-size: 1.2rem;
+    }
+    
+    .message {
+        max-width: 85%;
+        padding: 0.8rem 1rem;
+    }
+    
+    .chat-log {
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+    }
+}
+
+/* Optional: If you need to create a specific container just for centering the button */
+.microphone-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+/* Loading animation for when processing */
+.processing {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #667eea;
+    font-style: italic;
+}
+
+.processing::after {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #667eea;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Settings button */
+.settings-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: none;
+    border: none;
+    color: #6c757d;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+/* API Keys Warning Modal Styling */
+.modal-header.bg-warning {
+    background-color: #fff3cd !important;
+    border-bottom: 1px solid #ffeaa7;
+}
+
+.modal-header.bg-warning .modal-title {
+    color: #856404 !important;
+}
+
+#apiKeysWarningModal .btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+}
+
+#apiKeysWarningModal .btn-primary:hover {
+    background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+    transform: translateY(-1px);
+}
+
+/* Success/Error notifications */
+.alert.position-fixed {
+    max-width: 400px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+.alert-success {
+    background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+    border-color: #b0d4c4;
+    color: #155724;
+}
+
+.alert-danger {
+    background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+    border-color: #f1b0b7;
+    color: #721c24;
+}
+
+/* Settings modal improvements */
+.modal-content {
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 15px 15px 0 0;
+}
+
+.modal-header .btn-close {
+    filter: invert(1);
+}
+
+.form-control:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+    transform: translateY(-1px);
+}
